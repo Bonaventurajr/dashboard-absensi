@@ -95,18 +95,6 @@
             text-align: center;
         }
 
-        .sidebar .nav-link span {
-            flex: 1;
-        }
-
-        .sidebar .nav-link .badge {
-            background: rgba(255,255,255,0.3);
-            color: white;
-            padding: 4px 8px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-        }
-
         /* Konten utama */
         .main-content {
             flex: 1;
@@ -117,120 +105,289 @@
             transition: all 0.3s;
         }
 
-        /* Navbar atas */
+        /* ============================================ */
+        /* TOP NAVBAR STYLING */
+        /* ============================================ */
         .top-navbar {
             background: white;
             padding: 15px 25px;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-radius: 15px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
             margin-bottom: 25px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: sticky;
+            top: 20px;
+            z-index: 99;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid rgba(255,255,255,0.2);
         }
 
-        .top-navbar .page-title h4 {
+        /* Page Title */
+        .page-title h4 {
             margin: 0;
             font-weight: 600;
             color: #333;
+            font-size: 1.5rem;
         }
 
-        .top-navbar .page-title span {
+        .page-title span {
             font-size: 0.9rem;
             color: #6c757d;
-        }
-
-        .top-navbar .user-info {
             display: flex;
             align-items: center;
-            gap: 15px;
+            gap: 5px;
+            margin-top: 3px;
         }
 
-        .top-navbar .user-info .notification {
+        .page-title span i {
+            font-size: 0.8rem;
+            color: #667eea;
+        }
+
+        /* User Info Container */
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Notification Bell */
+        .notification {
             position: relative;
             cursor: pointer;
+            padding: 8px;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background: #f8f9fa;
         }
 
-        .top-navbar .user-info .notification i {
+        .notification:hover {
+            background: #e9ecef;
+        }
+
+        .notification i {
             font-size: 1.3rem;
-            color: #6c757d;
+            color: #495057;
         }
 
-        .top-navbar .user-info .notification .badge {
+        .notification .badge {
             position: absolute;
-            top: -5px;
-            right: -5px;
+            top: -2px;
+            right: -2px;
             background: #dc3545;
             color: white;
             border-radius: 50%;
             width: 18px;
             height: 18px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 2px solid white;
         }
 
-        .top-navbar .user-info .user-profile {
+        /* User Profile Dropdown */
+        .user-profile {
+            position: relative;
+        }
+
+        .user-profile .dropdown-toggle {
             display: flex;
             align-items: center;
-            gap: 10px;
-            cursor: pointer;
+            gap: 12px;
+            padding: 5px 10px;
+            border-radius: 12px;
+            transition: all 0.3s;
+            text-decoration: none;
+            color: #333;
+            background: #f8f9fa;
+            border: 1px solid transparent;
         }
 
-        .top-navbar .user-info .user-profile .avatar {
-            width: 40px;
-            height: 40px;
+        .user-profile .dropdown-toggle:hover {
+            background: #e9ecef;
+            border-color: #dee2e6;
+        }
+
+        .user-profile .dropdown-toggle::after {
+            display: none;
+        }
+
+        /* Avatar */
+        .avatar {
+            width: 45px;
+            height: 45px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 50%;
+            border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 600;
+            font-size: 1.2rem;
+            box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
         }
 
-        .top-navbar .user-info .user-profile .info {
-            line-height: 1.3;
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
         }
 
-        .top-navbar .user-info .user-profile .info .name {
+        /* User Info Text */
+        .user-info-text {
+            line-height: 1.4;
+        }
+
+        .user-info-text .name {
+            font-weight: 600;
+            color: #333;
+            font-size: 0.95rem;
+        }
+
+        .user-info-text .role {
+            font-size: 0.8rem;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-info-text .role i {
+            font-size: 0.7rem;
+            color: #667eea;
+        }
+
+        .user-info-text .role .badge-role {
+            background: #e9ecef;
+            padding: 2px 8px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        .badge-role.admin {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .badge-role.manager {
+            background: #28a745;
+            color: white;
+        }
+
+        .badge-role.user {
+            background: #17a2b8;
+            color: white;
+        }
+
+        /* Dropdown Menu */
+        .dropdown-menu {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            padding: 10px 0;
+            min-width: 250px;
+            margin-top: 10px !important;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .dropdown-header {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 5px;
+        }
+
+        .dropdown-header h6 {
+            margin: 0;
             font-weight: 600;
             color: #333;
         }
 
-        .top-navbar .user-info .user-profile .info .role {
+        .dropdown-header p {
+            margin: 5px 0 0;
             font-size: 0.8rem;
             color: #6c757d;
         }
 
-        /* Cards */
-        .stat-card {
+        .dropdown-item {
+            padding: 10px 20px;
+            color: #495057;
+            font-size: 0.95rem;
             transition: all 0.3s;
-            border: none;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.05);
-            overflow: hidden;
-            height: 100%;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-
-        .stat-card .card-body {
-            padding: 25px;
-        }
-
-        .stat-icon {
-            width: 60px;
-            height: 60px;
-            border-radius: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
+            gap: 12px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            color: #667eea;
+            font-size: 1rem;
+        }
+
+        .dropdown-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .dropdown-item:hover i {
+            color: white;
+        }
+
+        .dropdown-divider {
+            margin: 8px 0;
+            border-color: #dee2e6;
+        }
+
+        /* Quick Actions Menu (dari notification) */
+        .notification-menu {
+            min-width: 350px;
+            padding: 0;
+        }
+
+        .notification-header {
+            padding: 15px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .notification-header h6 {
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .notification-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #dee2e6;
+            transition: all 0.3s;
+        }
+
+        .notification-item:hover {
+            background: #f8f9fa;
+        }
+
+        .notification-item.unread {
+            background: #e8f4ff;
+        }
+
+        .notification-item .time {
+            font-size: 0.75rem;
+            color: #6c757d;
+            margin-top: 5px;
+        }
+
+        .notification-footer {
+            padding: 12px 20px;
+            text-align: center;
+            background: #f8f9fa;
+            border-radius: 0 0 15px 15px;
         }
 
         /* Responsive */
@@ -247,13 +404,19 @@
             .main-content.active {
                 margin-left: 280px;
             }
+            .user-info-text {
+                display: none;
+            }
+            .notification-menu {
+                min-width: 300px;
+            }
         }
 
-        /* Animasi */
+        /* Animation */
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(-20px);
             }
             to {
                 opacity: 1;
@@ -263,72 +426,6 @@
 
         .fade-in {
             animation: fadeIn 0.5s ease-out;
-        }
-
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #f1f1f1;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
-        /* Table styling */
-        .table {
-            margin-bottom: 0;
-        }
-
-        .table thead th {
-            border-top: none;
-            border-bottom: 2px solid #dee2e6;
-            font-weight: 600;
-            color: #495057;
-            text-transform: uppercase;
-            font-size: 0.8rem;
-            letter-spacing: 0.5px;
-        }
-
-        .table tbody td {
-            vertical-align: middle;
-            color: #6c757d;
-        }
-
-        .badge {
-            padding: 8px 12px;
-            font-weight: 500;
-            border-radius: 30px;
-        }
-
-        /* Button styling */
-        .btn {
-            border-radius: 8px;
-            padding: 8px 20px;
-            font-weight: 500;
-            transition: all 0.3s;
-        }
-
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border: none;
-        }
-
-        .btn-primary:hover {
-            background: linear-gradient(135deg, #5a6fd6 0%, #6a4193 100%);
         }
     </style>
 </head>
@@ -342,32 +439,23 @@
             </div>
             
             <div class="nav-menu">
+                <!-- Dashboard -->
                 <div class="nav-item">
                     <a href="{{ route('dashboard') }}" class="nav-link {{ request()->routeIs('dashboard') ? 'active' : '' }}">
                         <i class="fas fa-chart-pie"></i>
                         <span>Dashboard</span>
-                        @php
-                            $todayCount = App\Models\Attendance::whereDate('date', today())->count();
-                        @endphp
-                        @if($todayCount > 0)
-                            <span class="badge">{{ $todayCount }}</span>
-                        @endif
                     </a>
                 </div>
                 
+                <!-- Employees -->
                 <div class="nav-item">
                     <a href="{{ route('employees.index') }}" class="nav-link {{ request()->routeIs('employees.*') ? 'active' : '' }}">
                         <i class="fas fa-users"></i>
                         <span>Employees</span>
-                        @php
-                            $empCount = App\Models\Employee::count();
-                        @endphp
-                        @if($empCount > 0)
-                            <span class="badge">{{ $empCount }}</span>
-                        @endif
                     </a>
                 </div>
                 
+                <!-- Attendance -->
                 <div class="nav-item">
                     <a href="{{ route('attendances.index') }}" class="nav-link {{ request()->routeIs('attendances.*') ? 'active' : '' }}">
                         <i class="fas fa-calendar-check"></i>
@@ -375,6 +463,7 @@
                     </a>
                 </div>
                 
+                <!-- Reports -->
                 <div class="nav-item">
                     <a href="{{ route('reports.index') }}" class="nav-link {{ request()->routeIs('reports.*') ? 'active' : '' }}">
                         <i class="fas fa-chart-bar"></i>
@@ -382,53 +471,175 @@
                     </a>
                 </div>
                 
-                <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 15px;">
-                
+                <!-- Help -->
                 <div class="nav-item">
-                    <a href="#" class="nav-link">
-                        <i class="fas fa-cog"></i>
-                        <span>Settings</span>
-                    </a>
-                </div>
-                
-                <div class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('help.index') }}" class="nav-link {{ request()->routeIs('help.*') ? 'active' : '' }}">
                         <i class="fas fa-question-circle"></i>
                         <span>Help</span>
                     </a>
                 </div>
-            </div>
-            
-            <div style="position: absolute; bottom: 20px; left: 20px; right: 20px;">
-                <div class="text-white-50 small">
-                    <i class="fas fa-chevron-up me-1"></i> v1.0.0
+                
+                <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 15px;">
+                
+                <!-- Settings (hanya untuk admin) -->
+                @if(auth()->user() && auth()->user()->isAdmin())
+                <div class="nav-item">
+                    <a href="{{ route('settings.index') }}" class="nav-link {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
                 </div>
+                @endif
             </div>
         </div>
 
         <!-- Main Content -->
         <div class="main-content">
-            <!-- Top Navbar -->
+            <!-- ============================================ -->
+            <!-- TOP NAVBAR - LENGKAP DENGAN USER PROFILE -->
+            <!-- ============================================ -->
             <div class="top-navbar">
+                <!-- Page Title -->
                 <div class="page-title">
                     <h4>@yield('title', 'Dashboard')</h4>
-                    <span>{{ now()->format('l, d F Y') }}</span>
+                    <span>
+                        <i class="fas fa-calendar-alt"></i>
+                        {{ now()->format('l, d F Y') }}
+                        <i class="fas fa-clock ms-2"></i>
+                        <span id="liveClock"></span>
+                    </span>
                 </div>
                 
+                <!-- User Info Section -->
                 <div class="user-info">
-                    <div class="notification">
-                        <i class="fas fa-bell"></i>
-                        <span class="badge">3</span>
+                    <!-- Notification Bell -->
+                    <div class="notification dropdown">
+                        <a href="#" class="text-dark" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end notification-menu">
+                            <div class="notification-header">
+                                <h6 class="mb-0">Notifications</h6>
+                            </div>
+                            
+                            <div class="notification-item unread">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="bg-primary bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-user-plus text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>John Doe</strong> checked in late</p>
+                                        <small class="time">5 minutes ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="bg-success bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-check-circle text-success"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1"><strong>Jane Smith</strong> checked out</p>
+                                        <small class="time">1 hour ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-item">
+                                <div class="d-flex align-items-start gap-3">
+                                    <div class="bg-warning bg-opacity-10 rounded-circle p-2">
+                                        <i class="fas fa-exclamation-triangle text-warning"></i>
+                                    </div>
+                                    <div>
+                                        <p class="mb-1">5 employees haven't checked in</p>
+                                        <small class="time">2 hours ago</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="notification-footer">
+                                <a href="#" class="text-primary text-decoration-none">View All Notifications</a>
+                            </div>
+                        </div>
                     </div>
-                    
-                    <div class="user-profile">
-                        <div class="avatar">
-                            <span>AD</span>
-                        </div>
-                        <div class="info d-none d-md-block">
-                            <div class="name">Admin User</div>
-                            <div class="role">Administrator</div>
-                        </div>
+
+                    <!-- User Profile Dropdown -->
+                    <div class="user-profile dropdown">
+                        <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                            <!-- Avatar -->
+                            <div class="avatar">
+                                @if(auth()->user() && auth()->user()->photo)
+                                    <img src="{{ asset(auth()->user()->photo) }}" alt="{{ auth()->user()->name }}">
+                                @else
+                                    <span>{{ substr(auth()->user()->name ?? 'U', 0, 1) }}</span>
+                                @endif
+                            </div>
+                            
+                            <!-- User Info -->
+                            <div class="user-info-text">
+                                <div class="name">{{ auth()->user()->name ?? 'User' }}</div>
+                                <div class="role">
+                                    <i class="fas fa-circle" style="color: {{ auth()->user() && auth()->user()->isAdmin() ? '#667eea' : (auth()->user() && auth()->user()->isManager() ? '#28a745' : '#17a2b8') }}; font-size: 8px;"></i>
+                                    <span class="badge-role {{ auth()->user() ? auth()->user()->role : 'user' }}">
+                                        {{ auth()->user() ? ucfirst(auth()->user()->role) : 'User' }}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <i class="fas fa-chevron-down ms-2" style="font-size: 12px; color: #6c757d;"></i>
+                        </a>
+
+                        <!-- Dropdown Menu -->
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li class="dropdown-header">
+                                <h6>{{ auth()->user()->name ?? 'User' }}</h6>
+                                <p>{{ auth()->user()->email ?? 'email@example.com' }}</p>
+                            </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-clock"></i>
+                                    Attendance History
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-calendar-alt"></i>
+                                    My Schedule
+                                </a>
+                            </li>
+                            
+                            <li><hr class="dropdown-divider"></li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="#">
+                                    <i class="fas fa-cog"></i>
+                                    Account Settings
+                                </a>
+                            </li>
+                            
+                            <li>
+                                <a class="dropdown-item" href="{{ route('help.index') }}">
+                                    <i class="fas fa-question-circle"></i>
+                                    Help Center
+                                </a>
+                            </li>
+                            
+                            <li><hr class="dropdown-divider"></li>
+                            
+                            <li>
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item text-danger">
+                                        <i class="fas fa-sign-out-alt"></i>
+                                        Logout
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -458,6 +669,14 @@
                 </div>
             @endif
 
+            @if(session('info'))
+                <div class="alert alert-info alert-dismissible fade show fade-in" role="alert">
+                    <i class="fas fa-info-circle me-2"></i>
+                    {{ session('info') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+            @endif
+
             <!-- Content Section -->
             <div class="fade-in">
                 @yield('content')
@@ -467,17 +686,24 @@
     
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Optional JavaScript for sidebar toggle on mobile -->
     <script>
+        // Live Clock
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('liveClock').textContent = hours + ':' + minutes + ':' + seconds;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
         // Untuk mobile: toggle sidebar
         document.addEventListener('DOMContentLoaded', function() {
-            // Cek jika layar mobile
             if (window.innerWidth <= 768) {
                 const sidebar = document.querySelector('.sidebar');
                 const mainContent = document.querySelector('.main-content');
                 
-                // Tambahkan tombol toggle di top navbar untuk mobile
-                const pageTitle = document.querySelector('.page-title');
                 const toggleBtn = document.createElement('button');
                 toggleBtn.className = 'btn btn-sm btn-outline-primary me-2 d-md-none';
                 toggleBtn.innerHTML = '<i class="fas fa-bars"></i>';
@@ -485,14 +711,17 @@
                     sidebar.classList.toggle('active');
                     mainContent.classList.toggle('active');
                 };
-                pageTitle.prepend(toggleBtn);
+                document.querySelector('.page-title').prepend(toggleBtn);
             }
         });
 
-        // Untuk highlight menu berdasarkan scroll
-        window.addEventListener('scroll', function() {
-            // Implementasi jika diperlukan
-        });
+        // Auto hide alerts after 5 seconds
+        setTimeout(function() {
+            document.querySelectorAll('.alert').forEach(function(alert) {
+                let bsAlert = new bootstrap.Alert(alert);
+                bsAlert.close();
+            });
+        }, 5000);
     </script>
     
     @stack('scripts')
