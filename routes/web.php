@@ -48,17 +48,20 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/reports-guide', [HelpController::class, 'reportsGuide'])->name('reports-guide');
         Route::get('/faq', [HelpController::class, 'faq'])->name('faq');
         Route::get('/contact', [HelpController::class, 'contact'])->name('contact');
+        Route::post('/submit-ticket', [HelpController::class, 'submitTicket'])->name('submit-ticket');
+        Route::get('/system-info', [HelpController::class, 'systemInfo'])->name('system-info');
     });
+
 });
 
-// Settings routes - HANYA UNTUK ADMIN
-Route::middleware(['auth', 'admin'])->prefix('settings')->name('settings.')->group(function () {
-    Route::get('/', [SettingsController::class, 'index'])->name('index');
-    Route::post('/general', [SettingsController::class, 'updateGeneral'])->name('update.general');
-    Route::post('/attendance', [SettingsController::class, 'updateAttendance'])->name('update.attendance');
-    Route::post('/notifications', [SettingsController::class, 'updateNotifications'])->name('update.notifications');
-    Route::get('/backup', [SettingsController::class, 'backup'])->name('backup');
-    Route::post('/backup/create', [SettingsController::class, 'createBackup'])->name('backup.create');
-    Route::post('/backup/restore', [SettingsController::class, 'restoreBackup'])->name('backup.restore');
-    Route::get('/users', [SettingsController::class, 'users'])->name('users');
+    // Settings routes - TANPA MIDDLEWARE ADMIN, CUKUP AUTH SAJA
+    Route::middleware(['auth'])->prefix('settings')->name('settings.')->group(function () {
+        Route::get('/', [App\Http\Controllers\SettingsController::class, 'index'])->name('index');
+        Route::post('/general', [App\Http\Controllers\SettingsController::class, 'updateGeneral'])->name('update.general');
+        Route::post('/attendance', [App\Http\Controllers\SettingsController::class, 'updateAttendance'])->name('update.attendance');
+        Route::post('/notifications', [App\Http\Controllers\SettingsController::class, 'updateNotifications'])->name('update.notifications');
+        Route::get('/backup', [App\Http\Controllers\SettingsController::class, 'backup'])->name('backup');
+        Route::post('/backup/create', [App\Http\Controllers\SettingsController::class, 'createBackup'])->name('backup.create');
+        Route::post('/backup/restore', [App\Http\Controllers\SettingsController::class, 'restoreBackup'])->name('backup.restore');
+        Route::get('/users', [App\Http\Controllers\SettingsController::class, 'users'])->name('users');
 });

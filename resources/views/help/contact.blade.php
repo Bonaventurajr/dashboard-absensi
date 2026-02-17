@@ -8,15 +8,31 @@
         <div class="col-12">
             <div class="card stat-card border-0 shadow-sm">
                 <div class="card-body">
-                    <h4 class="mb-2">
-                        <i class="fas fa-headset text-primary me-2"></i>
-                        Contact Support
-                    </h4>
-                    <p class="text-muted mb-0">Get help from our support team</p>
+                    <div class="d-flex align-items-center">
+                        <a href="{{ route('help.index') }}" class="btn btn-outline-secondary me-3">
+                            <i class="fas fa-arrow-left"></i>
+                        </a>
+                        <div>
+                            <h4 class="mb-2">
+                                <i class="fas fa-headset text-primary me-2"></i>
+                                Contact Support
+                            </h4>
+                            <p class="text-muted mb-0">Get help from our support team</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Success Message -->
+    @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show">
+            <i class="fas fa-check-circle me-2"></i>
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    @endif
 
     <div class="row g-4">
         <div class="col-md-4">
@@ -51,7 +67,7 @@
                     </div>
                     <h5>Live Chat</h5>
                     <p class="text-muted">Available 24/7</p>
-                    <button class="btn btn-info text-white">Start Chat</button>
+                    <button class="btn btn-info text-white" disabled>Coming Soon</button>
                 </div>
             </div>
         </div>
@@ -65,19 +81,35 @@
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Your Name</label>
-                        <input type="text" name="name" class="form-control" required>
+                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" 
+                               value="{{ old('name', auth()->user()->name ?? '') }}" required>
+                        @error('name')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-md-6">
                         <label class="form-label">Email Address</label>
-                        <input type="email" name="email" class="form-control" required>
+                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" 
+                               value="{{ old('email', auth()->user()->email ?? '') }}" required>
+                        @error('email')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-12">
                         <label class="form-label">Subject</label>
-                        <input type="text" name="subject" class="form-control" required>
+                        <input type="text" name="subject" class="form-control @error('subject') is-invalid @enderror" 
+                               value="{{ old('subject') }}" required>
+                        @error('subject')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-12">
                         <label class="form-label">Message</label>
-                        <textarea name="message" rows="5" class="form-control" required></textarea>
+                        <textarea name="message" rows="5" class="form-control @error('message') is-invalid @enderror" 
+                                  required>{{ old('message') }}</textarea>
+                        @error('message')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">
