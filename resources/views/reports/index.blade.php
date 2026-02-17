@@ -18,9 +18,6 @@
                             <p class="text-muted mb-0">Generate and analyze attendance reports</p>
                         </div>
                         <div class="d-flex gap-2">
-                            <button class="btn btn-outline-success" onclick="exportExcel()">
-                                <i class="fas fa-file-excel me-2"></i>Export Excel
-                            </button>
                             <button class="btn btn-outline-danger" onclick="exportPDF()">
                                 <i class="fas fa-file-pdf me-2"></i>Export PDF
                             </button>

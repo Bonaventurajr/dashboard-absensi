@@ -385,14 +385,14 @@
                 <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 15px;">
                 
                 <div class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('settings.index') }}" class="nav-link {{ request()->routeIs('settings.*') ? 'active' : '' }}">
                         <i class="fas fa-cog"></i>
                         <span>Settings</span>
                     </a>
                 </div>
                 
                 <div class="nav-item">
-                    <a href="#" class="nav-link">
+                    <a href="{{ route('help.index') }}" class="nav-link {{ request()->routeIs('help.*') ? 'active' : '' }}">
                         <i class="fas fa-question-circle"></i>
                         <span>Help</span>
                     </a>

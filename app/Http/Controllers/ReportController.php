@@ -6,6 +6,7 @@ use App\Models\Attendance;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class ReportController extends Controller
 {
@@ -109,41 +110,76 @@ class ReportController extends Controller
      */
     public function exportPdf(Request $request)
     {
-        // Similar query as index
+        // Get filter parameters
         $startDate = $request->get('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
         $endDate = $request->get('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
-        
-        $attendances = Attendance::with('employee')
-            ->whereBetween('date', [$startDate, $endDate])
-            ->orderBy('date', 'desc')
-            ->get();
+        $department = $request->get('department');
+        $status = $request->get('status');
+        $employeeId = $request->get('employee_id');
 
+        // Build query
+        $query = Attendance::with('employee')
+            ->whereBetween('date', [$startDate, $endDate]);
+
+        if ($department) {
+            $query->whereHas('employee', function($q) use ($department) {
+                $q->where('department', $department);
+            });
+        }
+
+        if ($status) {
+            $query->where('status', $status);
+        }
+
+        if ($employeeId) {
+            $query->where('employee_id', $employeeId);
+        }
+
+        $attendances = $query->orderBy('date', 'desc')->get();
+
+        // Calculate statistics
         $statistics = [
-            'total' => $attendances->count(),
+            'total_days' => Carbon::parse($startDate)->diffInDays(Carbon::parse($endDate)) + 1,
+            'total_attendances' => $attendances->count(),
             'present' => $attendances->where('status', 'present')->count(),
             'late' => $attendances->where('status', 'late')->count(),
             'absent' => $attendances->where('status', 'absent')->count(),
+            'leave' => $attendances->where('status', 'leave')->count(),
         ];
 
-        // Generate PDF (you need to install barryvdh/laravel-dompdf first)
-        // $pdf = PDF::loadView('reports.pdf', compact('attendances', 'statistics', 'startDate', 'endDate'));
-        // return $pdf->download('attendance-report-'.$startDate.'-to-'.$endDate.'.pdf');
-        
-        // For now, return a message
-        return back()->with('info', 'PDF export feature coming soon. Install barryvdh/laravel-dompdf package to enable this feature.');
+        // Get company info
+        $companyName = session('company_name', 'PT. Bonaventura Harapan Sejahtera');
+        $reportTitle = 'Attendance Report';
+        $generatedDate = Carbon::now()->format('d F Y H:i:s');
+
+        // Generate PDF
+        $pdf = Pdf::loadView('reports.pdf', compact(
+            'attendances', 
+            'statistics', 
+            'startDate', 
+            'endDate',
+            'companyName',
+            'reportTitle',
+            'generatedDate',
+            'department',
+            'status'
+        ));
+
+        // Set paper size and orientation
+        $pdf->setPaper('A4', 'landscape');
+
+        // Download PDF
+        $filename = 'attendance-report-'.$startDate.'-to-'.$endDate.'.pdf';
+        return $pdf->download($filename);
     }
 
     /**
-     * Export report to Excel
+     * Export report to Excel (placeholder)
      */
     public function exportExcel(Request $request)
     {
-        // Similar query as index
-        $startDate = $request->get('start_date', Carbon::now()->startOfMonth()->format('Y-m-d'));
-        $endDate = $request->get('end_date', Carbon::now()->endOfMonth()->format('Y-m-d'));
-        
-        // For now, return a message
-        return back()->with('info', 'Excel export feature coming soon. Install maatwebsite/excel package to enable this feature.');
+        // Untuk sementara redirect dengan pesan
+        return back()->with('info', 'Excel export feature will be available soon. Please install maatwebsite/excel package.');
     }
 
     /**

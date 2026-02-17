@@ -18,23 +18,35 @@ Route::post('/attendance/checkout', [AttendanceController::class, 'checkOut'])->
 
 // Report routes
 Route::prefix('reports')->name('reports.')->group(function () {
-    Route::get('/', [ReportController::class, 'index'])->name('index');
-    Route::get('/export-pdf', [ReportController::class, 'exportPdf'])->name('export-pdf');
-    Route::get('/export-excel', [ReportController::class, 'exportExcel'])->name('export-excel');
-    Route::get('/employee/{employeeId?}', [ReportController::class, 'employeeReport'])->name('employee');
-    Route::get('/daily', [ReportController::class, 'dailyReport'])->name('daily');
-    Route::get('/monthly', [ReportController::class, 'monthlySummary'])->name('monthly');
+    Route::get('/', [App\Http\Controllers\ReportController::class, 'index'])->name('index');
+    Route::get('/export-pdf', [App\Http\Controllers\ReportController::class, 'exportPdf'])->name('export-pdf');
+    Route::get('/export-excel', [App\Http\Controllers\ReportController::class, 'exportExcel'])->name('export-excel');
+    Route::get('/employee/{employeeId?}', [App\Http\Controllers\ReportController::class, 'employeeReport'])->name('employee');
+    Route::get('/daily', [App\Http\Controllers\ReportController::class, 'dailyReport'])->name('daily');
+    Route::get('/monthly', [App\Http\Controllers\ReportController::class, 'monthlySummary'])->name('monthly');
 });
 
 // Help routes
 Route::prefix('help')->name('help.')->group(function () {
-    Route::get('/', [HelpController::class, 'index'])->name('index');
-    Route::get('/getting-started', [HelpController::class, 'gettingStarted'])->name('getting-started');
-    Route::get('/employee-guide', [HelpController::class, 'employeeGuide'])->name('employee-guide');
-    Route::get('/attendance-guide', [HelpController::class, 'attendanceGuide'])->name('attendance-guide');
-    Route::get('/reports-guide', [HelpController::class, 'reportsGuide'])->name('reports-guide');
-    Route::get('/faq', [HelpController::class, 'faq'])->name('faq');
-    Route::get('/contact', [HelpController::class, 'contact'])->name('contact');
-    Route::post('/submit-ticket', [HelpController::class, 'submitTicket'])->name('submit-ticket');
-    Route::get('/system-info', [HelpController::class, 'systemInfo'])->name('system-info');
+    Route::get('/', [App\Http\Controllers\HelpController::class, 'index'])->name('index');
+    Route::get('/getting-started', [App\Http\Controllers\HelpController::class, 'gettingStarted'])->name('getting-started');
+    Route::get('/employee-guide', [App\Http\Controllers\HelpController::class, 'employeeGuide'])->name('employee-guide');
+    Route::get('/attendance-guide', [App\Http\Controllers\HelpController::class, 'attendanceGuide'])->name('attendance-guide');
+    Route::get('/reports-guide', [App\Http\Controllers\HelpController::class, 'reportsGuide'])->name('reports-guide');
+    Route::get('/faq', [App\Http\Controllers\HelpController::class, 'faq'])->name('faq');
+    Route::get('/contact', [App\Http\Controllers\HelpController::class, 'contact'])->name('contact');
+    Route::post('/submit-ticket', [App\Http\Controllers\HelpController::class, 'submitTicket'])->name('submit-ticket');
+    Route::get('/system-info', [App\Http\Controllers\HelpController::class, 'systemInfo'])->name('system-info');
+});
+
+// Settings routes
+Route::prefix('settings')->name('settings.')->group(function () {
+    Route::get('/', [App\Http\Controllers\SettingsController::class, 'index'])->name('index');
+    Route::post('/general', [App\Http\Controllers\SettingsController::class, 'updateGeneral'])->name('update.general');
+    Route::post('/attendance', [App\Http\Controllers\SettingsController::class, 'updateAttendance'])->name('update.attendance');
+    Route::post('/notifications', [App\Http\Controllers\SettingsController::class, 'updateNotifications'])->name('update.notifications');
+    Route::get('/backup', [App\Http\Controllers\SettingsController::class, 'backup'])->name('backup');
+    Route::post('/backup/create', [App\Http\Controllers\SettingsController::class, 'createBackup'])->name('backup.create');
+    Route::post('/backup/restore', [App\Http\Controllers\SettingsController::class, 'restoreBackup'])->name('backup.restore');
+    Route::get('/users', [App\Http\Controllers\SettingsController::class, 'users'])->name('users');
 });
